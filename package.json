@@ -1,0 +1,29 @@
+{
+  "name": "m_one_two",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LiranB",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "crypto": "^1.0.1",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.24.0",
+    "mysql2": "^2.1.0",
+    "mysql2-promise": "^0.1.4",
+    "nodemailer": "^6.4.2",
+    "npm": "^6.13.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "request": "^2.88.0"
+  }
+}
