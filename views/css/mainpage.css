@@ -1,0 +1,21 @@
+body {
+    padding: 1vw;
+}
+
+.container {
+    padding: 1rem 0 0;
+}
+
+#header {
+    /* margin-top: -3vw; */
+    text-align: center;
+    /* float: center !important; */
+    /* right: -75% !important;*/
+    margin-right: 28.3vw !important;
+} 
+
+img {
+    margin: 0 2vh;
+    float: right;
+    display: inline;
+}

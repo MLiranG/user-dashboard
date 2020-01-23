@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <base href="/">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/mainpage.css">
@@ -13,11 +14,82 @@
 
 <body>
     <div class="container">
-        <!-- <div class="jumbotron text-center">
+        <div class="jumbotron text-center">
 
-        </div> -->
+            <h1 class="display-4">My profile</h1>
+            <% //if (pict == "d") { %>
+            <img src="../../api/uploads/image.png" class="img-fluid" id="profilepic" height="100" width="100">
+            <%// } else {%>
 
-        <h2>!My profile!</h2>
+            <!-- <img src=<%= //pict %> class="img-fluid" id="profilepic" height="100" width="100"> -->
+            <%// } %>
+
+            <div>
+                <label>
+                    <input type="file" id="fileinput" name="put_name" />
+                </label>
+                <div>
+                    <button name="put_submit">Save Changes</button>
+                </div>
+            </div>
+            <br><br><br><br><br>
+
+
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                window.history.pushState({}, document.title, "/profile");
+                console.log('<%= data.email %>')
+                $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function(data) {
+                    console.log(data.profilepic)
+                    let done = "./uploads/" + data.profilepic;
+                    document.getElementById("profilepic").src = done
+                })
+
+                $("button[name=put_submit]").click(function () {
+                    console.log('Submit button clicked')
+                    let fileInput = document.getElementById('fileinput');
+                    let file = fileInput.files[0];
+                    let formData = new FormData();
+                    formData.append('file', file);
+
+                    // $.ajax({
+                    //     url: '/profile/uploadpic',
+                    //     type: 'PUT',
+                    //     data: file,
+                    //     success: function (data) {
+                    //         console.log(data)
+                    //     }
+                    // });
+                    // document.getElementById("profilepic").src = file
+
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('PUT', '/profile/uploadpic', true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                            console.log(xhr.responseText);
+                            let str = xhr.responseText;
+                            let done = "./" + str.substring(12);
+                            document.getElementById("profilepic").src = done
+                        }
+                    };
+                    xhr.send(formData);
+                })
+
+                
+            })
+
+
+            // window.history.pushState({}, document.title, "/");
+        </script>
     </div>
 </body>
 

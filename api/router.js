@@ -16,17 +16,21 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         };
     };
 
-    function verificate(email, res) {
+    async function verificate(email, res) {
         connection.query(`SELECT verified FROM register WHERE email = '${email}'`, function (err, rows, fields) {
             if (err) {
                 console.error(err)
             } else {
                 if (!rows[0]) {
-                    res.send('No account with that email, please check it again')
+                    // res.send('No account with that email, please check it again')
                 } else {
                     if (rows[0].verified == 1) {
-                        res.send('This account already verified')
+                        console.log("LMAO ")
+                        return "verified"
+                        // res.send('This account is already verified, please go back')
                     } else if (rows[0].verified == 0) {
+                        
+                        // res.send('An email sent, please check your inbox')
                         let info = {};
                         info.user = email;
                         info.expiry = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
@@ -41,7 +45,8 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                             html: `<b><h1>Hello!</h1>,<br><h2><a href="http://localhost:8080/verify/register/${token}">please click here to verificate your registeration.</a></h2></b>` // html body
                         });
 
-                        return true;
+                        return "emailsent"
+
                     }
                 }
             }
@@ -102,11 +107,21 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         })
     })
 
-    app.get('/resend/verify/:email', (req, res) => {
-        res.send('<h2>You may close the window now</h2>')
-        let email = req.params.email
-        verificate(email, res)
+    app.get('/resend/verify/:email', async (req, res) => {
         // res.send('<h2>You may close the window now</h2>')
+        let email = req.params.email
+        // console.log(verificate(email, res))
+        let func = await verificate(email, res)
+        res.send("An email sent")
+        if (func == "emailsent") {
+            console.log("EVEN MORE LMAO a")
+            res.send('<h2>You may close the window now</h2>')
+        } else if (func == "verified") {
+            res.send('<h2>LMAO</h2>')
+        }
+        /*else if (verificate(email, res) === false) {
+                   res.send('<h2>LMAO</h2>')
+               }*/
     })
 
     app.get('/verify/register/:token', (req, res, next) => {
@@ -184,6 +199,13 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         res.render('index.html')
     })
 
+    app.get('/signup', (req, res) => {
+        res.render('signup.html')
+    })
+
+    app.get('/login', (req, res) => {
+        res.render('login.html')
+    })
 
 
     app.post('/signup', (req, res, next) => {
@@ -193,7 +215,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         let email = req.body.email;
         let password_nothashed = req.body.password
         // ============ password encryption and those other things
-        let salt = createsalt(16)
+        let salt = createsalt(10)
         let password_hashed = hash(password_nothashed, salt).passwordHash
         // console.log(salt, hash(password_nothashed, salt).salt) // just for debugging 
         // ============
@@ -204,6 +226,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
             } else {
                 if (rows[0]) {
                     console.log(rows)
+                    res.send("registered")
                 } else {
                     connection.query(`INSERT INTO register(email, password, salt, verified) VALUES ('${req.body.email}', '${password_hashed}', '${salt}', 'false')`, function (err, rows, fields) {
                         if (err) {
@@ -212,7 +235,13 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                             console.log("/signup, query succeed")
                         }
 
-                        verificate(req.body.email);
+                        verificate(req.body.email, res)
+                        res.send("emailsent")
+                        /*.then(function() {
+                            res.send("an email sent")
+                        });*/
+
+                        // res.redirect("/")
 
                     })
                 }
@@ -221,10 +250,9 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
 
         })
 
-        res.redirect("/")
+        // res.redirect("/")
 
     })
-
 
 
     app.post('/login', (req, res, next) => {
@@ -248,7 +276,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                         } else {
                             // console.log(rowsa)
                             if (!rowsa[0]) {
-                                res.redirect("/")
+                                res.redirect("incorrect")
                             } else if (rowsa[0].email == req.body.email) {
                                 console.log(rowsa)
                                 // console.log('check1 succeed')
@@ -267,11 +295,11 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
 
                                                 body.email = req.body.email
                                                 body.passwo = hash(inputpassword_nothashed, rows[0].salt).passwordHash
-                                                let token = jwt.encode(body, conf.secret)  
+                                                let token = jwt.encode(body, conf.secret)
 
                                                 // request.get('http://localhost:8080/profile/callback/' + token)
-
-                                                res.redirect('http://localhost:8080/profile/callback/' + token)
+                                                res.send('http://localhost:8080/profile/callback/' + token)
+                                                // res.redirect('http://localhost:8080/profile/callback/' + token)
 
                                                 // fetch('http://localhost:8080/profile', {
                                                 //         method: 'post',
@@ -303,6 +331,11 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
 
         // res.render('index.html')
         // res.redirect("/")
+    })
+
+    app.get('/check', (req, res) => {
+        console.log('dsaasdsda')
+        res.send('asdasd')
     })
 
     // app.post()

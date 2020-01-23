@@ -14,7 +14,13 @@ const conf = require('./config.json')
 const jwt = require('jwt-simple')
 const fetch = require("node-fetch")
 const request = require('request');
+const fileUpload = require('express-fileupload');
+const methodOverride = require('method-override');
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 // var router = require('./api/router.js')
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -30,20 +36,27 @@ const connection = sql.createConnection({
     password: conf.sqlpass
 });
 
+app.use(session({
+  secret: conf.secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {} //in prod it will be {secure: true}
+}))
 
 // connection.query()
 
 app.set('views', __dirname + '/views/pages');
+app.use(express.static('./api/files'))
 app.use('/css',express.static(__dirname +'/views/css'));
 app.engine('html', require('ejs').renderFile);
 app.use(cookies());
 app.use(bodyParser())
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(fileUpload())
 
 require('./api/router.js')(app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request); //bodyParser
-require('./api/profile.js')(app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request);
+require('./api/profile.js')(app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request, path, fs, multer);
 
 // require('./views/app.js')
 

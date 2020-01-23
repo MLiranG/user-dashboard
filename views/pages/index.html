@@ -18,30 +18,32 @@
     <div class="container">
         <div class="jumbotron text-center">
             <!-- signup -->
-            <div class="signup">
-                <form action="/signup" method="post"> </form>
-                <!--action="/signup" method="post"  -->
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email" id="emailsignup">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
+            <!-- <div class="signup">
+                <form action="/signup" method="post">
+                    action="/signup" method="post"  
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email" id="emailsignup">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
 
-                <button type="submit" id="signupbutton" class="btn btn-warning btn-lg">Signup</button>
+                    <button type="submit" id="signupbutton" class="btn btn-warning btn-lg">Signup</button>
                 </form>
 
                 <hr>
 
                 <p>Already have an account? <a onclick="hide_show_div('signup+normal', false)">Login</a></p>
-                <p>You didn't got a verification email? <a onclick='window.location.href = `http:\/\/localhost:8080/resend/verify`'>Click here for a resend</a></p>
+                <p>You didn't got a verification email? <a
+                        onclick='window.location.href = `http:\/\/localhost:8080/resend/verify`'>Click here for a
+                        resend</a></p>
                 <p>Or go <a onclick="hide_show_div('login+signup', false)">home</a>.</p>
-            </div>
+            </div> -->
 
             <!-- login -->
-            <div class="login">
+            <!-- <div class="login">
                 <form action="/login" method="post">
                     <div class="form-group">
                         <label>Email</label>
@@ -60,7 +62,7 @@
                 <p>Need an account? <a onclick="hide_show_div('login+normal', false)">Signup</a></p>
                 <p><a onclick='window.location.href = `http:\/\/localhost:8080/reset/password`'>Reset password</a></p>
                 <p>Or go <a onclick="hide_show_div('login+signup', false)">home</a>.</p>
-            </div>
+            </div> -->
 
             <!-- welcome -->
             <div class="normal">
@@ -69,10 +71,10 @@
 
                 <p>Login or Register:</p>
 
-                <a onclick="hide_show_div('signup+normal', false)" class="btn btn-default"><span
+                <a onclick="window.location.href = `http:\/\/localhost:8080/login`" class="btn btn-default"><span
                         class="fa fa-user"></span>
                     Login</a>
-                <a onclick="hide_show_div('login+normal', false)" class="btn btn-default"><span
+                <a onclick="window.location.href = `http:\/\/localhost:8080/signup`" class="btn btn-default"><span
                         class="fa fa-user"></span> Signup</a>
             </div>
         </div>
@@ -84,108 +86,92 @@
     <script>
         console.log("how are ya")
 
-        let signup = document.getElementsByClassName('signup')[0]
-        let login = document.getElementsByClassName('login')[0]
-        let welcome = document.getElementsByClassName('normal')[0]
+        /* let signup = document.getElementsByClassName('signup')[0]
+            let login = document.getElementsByClassName('login')[0]
+            let welcome = document.getElementsByClassName('normal')[0]
 
-        var getCookie = function (name) {
-            var value = "; " + document.cookie;
-            var parts = value.split("; " + name + "=");
-            if (parts.length == 2) return parts.pop().split(";").shift();
-        };
+            var getCookie = function (name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length == 2) return parts.pop().split(";").shift();
+            };
 
-        var ajx = function (urlx, kind, contextx) {
+            var ajx = function (urlx, kind, contextx) {
 
-            if (!contextx && kind !== "POST" || kind !== "PUT") {
+                if (!contextx && kind !== "POST" || kind !== "PUT") {
+                    $.ajax({
+                        url: urlx,
+                        method: kind.toUpperCase()
+                    })
+                }
+
                 $.ajax({
                     url: urlx,
+                    context: contextx,
                     method: kind.toUpperCase()
                 })
             }
 
-            $.ajax({
-                url: urlx,
-                context: contextx,
-                method: kind.toUpperCase()
-            })
-        }
+            var hide_show_div = function (classx, yn = false) {
 
-        var hide_show_div = function (classx, yn = false) {
-
-            if (classx == "signup+normal") {
-                //cleaning the inputs
-                $("input[name='email']")[0].value = ""
-                $("input[name='password']")[0].value = ""
-                if (yn == true) {
-                    signup.style.display = "block";
-                    welcome.style.display = "block";
-                    login.style.display = "none";
+                if (classx == "signup+normal") {
+                    //cleaning the inputs
+                    $("input[name='email']")[0].value = ""
+                    $("input[name='password']")[0].value = ""
+                    if (yn == true) {
+                        signup.style.display = "block";
+                        welcome.style.display = "block";
+                        login.style.display = "none";
+                    } else {
+                        signup.style.display = "none";
+                        welcome.style.display = "none";
+                        login.style.display = "block";
+                    }
+                } else if (classx == "login+normal") {
+                    $("input[name='email']")[1].value = ""
+                    $("input[name='password']")[1].value = ""
+                    if (yn == true) {
+                        login.style.display = "block";
+                        welcome.style.display = "block";
+                        signup.style.display = "none";
+                    } else {
+                        login.style.display = "none";
+                        welcome.style.display = "none";
+                        signup.style.display = "block";
+                    }
+                } else if (classx == "login+signup") {
+                    $("input[name='email']")[0].value = ""
+                    $("input[name='password']")[0].value = ""
+                    $("input[name='email']")[1].value = ""
+                    $("input[name='password']")[1].value = ""
+                    if (yn == true) {
+                        signup.style.display = "block";
+                        login.style.display = "block";
+                        welcome.style.display = "none";
+                    } else {
+                        signup.style.display = "none";
+                        login.style.display = "none";
+                        welcome.style.display = "block";
+                    }
                 } else {
-                    signup.style.display = "none";
-                    welcome.style.display = "none";
-                    login.style.display = "block";
+
+                    let x = document.getElementsByClassName(classx)[0]
+                    if (x.style.display = "none") {
+                        x.style.display = "block";
+                    } else if (x.style.display = "block") {
+                        x.style.display = "none";
+                    }
                 }
-            } else if (classx == "login+normal") {
-                $("input[name='email']")[1].value = ""
-                $("input[name='password']")[1].value = ""
-                if (yn == true) {
-                    login.style.display = "block";
-                    welcome.style.display = "block";
-                    signup.style.display = "none";
-                } else {
-                    login.style.display = "none";
-                    welcome.style.display = "none";
-                    signup.style.display = "block";
-                }
-            } else if (classx == "login+signup") {
-                $("input[name='email']")[0].value = ""
-                $("input[name='password']")[0].value = ""
-                $("input[name='email']")[1].value = ""
-                $("input[name='password']")[1].value = ""
-                if (yn == true) {
-                    signup.style.display = "block";
-                    login.style.display = "block";
-                    welcome.style.display = "none";
-                } else {
-                    signup.style.display = "none";
-                    login.style.display = "none";
-                    welcome.style.display = "block";
-                }
-            } else {
 
-                let x = document.getElementsByClassName(classx)[0]
-                if (x.style.display = "none") {
-                    x.style.display = "block";
-                } else if (x.style.display = "block") {
-                    x.style.display = "none";
-                }
-            }
+            };
 
-        };
-
-        $(document).ready(function () {
-            signup.style.display = "none";
-            login.style.display = "none";
-        })
+            $(document).ready(function () {
+                signup.style.display = "none";
+                login.style.display = "none";
+            }) */
 
 
-        $('#signupbutton').click(function () {
-            console.log([$("input[name='email']")[0].value, $("input[name='password']")[0].value])
 
-            $.post("http://localhost:8080/signup", {
-                email: $("input[name='email']")[0].value,
-                password: $("input[name='password']")[0].value
-            })
-            hide_show_div('signup+normal', false)
-        })
-
-        $('#loginbutton').click(function () {
-            console.log([$("input[name='email']")[1].value, $("input[name='password']")[1].value])
-
-            $.post("http://localhost:8080/login", {
-                email: $("input[name='email']")[1].value,
-                password: $("input[name='password']")[1].value
-            })
             // hide_show_div('signup+normal', false)
         })
     </script>
