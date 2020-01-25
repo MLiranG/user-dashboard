@@ -15,81 +15,141 @@
 <body>
     <div class="container">
         <div class="jumbotron text-center">
+            <div class="alert alert-danger" role="alert" style="display: none;" id="errmsg"></div>
 
             <h1 class="display-4">My profile</h1>
-            <% //if (pict == "d") { %>
-            <img src="../../api/uploads/image.png" class="img-fluid" id="profilepic" height="100" width="100">
-            <%// } else {%>
+            <br>
+            <div class="form-group">
 
-            <!-- <img src=<%= //pict %> class="img-fluid" id="profilepic" height="100" width="100"> -->
-            <%// } %>
+                <section id="profile">
+                    <!-- <img src="../../api/uploads/image.png" class="img-fluid prof" id="profilepic" height="100"
+                        width="100">
 
-            <div>
-                <label>
-                    <input type="file" id="fileinput" name="put_name" />
-                </label>
-                <div>
-                    <button name="put_submit">Save Changes</button>
-                </div>
+                    <input type="file" id="fileinput" class="input prof" name="put_name" value="as" />
+
+                    <button name="put_submit" class="btn prof">Save Changes</button> -->
+
+                    <!-- <img src="../../api/uploads/image.png" class="img-fluid prof" id="profilepic" height="100"
+                        width="100">
+
+                    <input type="file" id="fileinput" class=" prof" name="put_name" value="as" />
+
+                    <button name="put_submit" class=" prof">Save Changes</button> -->
+
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='ele'><img src="../../api/uploads/image.png" class="img-fluid prof"
+                                    id="profilepic" height="100" width="100"></div>
+                        </div>
+                    </div>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='ele'><input type="file" id="fileinput" class="input prof" name="put_name"
+                                    value="as" /></div>
+                        </div>
+                    </div>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='ele'><button name="put_submit" class="input prof">Save Changes</button></div>
+                        </div>
+                    </div>
+
+                </section>
+                <div id="spacer3"></div>
+                <section id="onme">
+                    <hr class="handle">
+                    <h1 class="handle">MSG</h1>
+                    <hr class="handle">
+                    <h2>Details on me</h2>
+                    <h4 id="name" class="infor">a</h4>
+                    <h4 id="city" class="infor">b</h4>
+                    <h4 id="hobbies" class="infor">c
+                        <ul>
+                            <li>a</li>
+                            <li>a</li>
+                            <li>a</li>
+                        </ul>
+                    </h4>
+                </section>
             </div>
-            <br><br><br><br><br>
-
-
         </div>
 
 
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <!-- <br><br><br><br><br><br><br><br><br><br> -->
 
 
-        <script>
-            $(document).ready(function () {
-                window.history.pushState({}, document.title, "/profile");
-                console.log('<%= data.email %>')
-                $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function(data) {
-                    console.log(data.profilepic)
-                    let done = "./uploads/" + data.profilepic;
-                    document.getElementById("profilepic").src = done
-                })
+    </div>
 
-                $("button[name=put_submit]").click(function () {
-                    console.log('Submit button clicked')
-                    let fileInput = document.getElementById('fileinput');
-                    let file = fileInput.files[0];
-                    let formData = new FormData();
-                    formData.append('file', file);
 
-                    // $.ajax({
-                    //     url: '/profile/uploadpic',
-                    //     type: 'PUT',
-                    //     data: file,
-                    //     success: function (data) {
-                    //         console.log(data)
-                    //     }
-                    // });
-                    // document.getElementById("profilepic").src = file
 
-                    let xhr = new XMLHttpRequest();
-                    xhr.open('PUT', '/profile/uploadpic', true);
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                            console.log(xhr.responseText);
+
+    <script>
+        $(document).ready(function () {
+            window.history.pushState({}, document.title, "/profile");
+            console.log('<%= data.email %>')
+            $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function (data) {
+                console.log(data.profilepic)
+                let done = "./uploads/" + data.profilepic;
+                document.getElementById("profilepic").src = done
+            })
+
+            $("button[name=put_submit]").click(function () {
+                console.log('Submit button clicked')
+                let fileInput = document.getElementById('fileinput');
+                let file = fileInput.files[0];
+                let formData = new FormData();
+                formData.append('file', file);
+                formData.append('email', '<%= data.email %>');
+
+                let xhr = new XMLHttpRequest();
+                xhr.open('PUT', '/profile/uploadpic', true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                        if (xhr.responseText == "exist") {
+                            // document.getElementById('errmsg').innerHTML = "ERROR: There is already a picture for this user"
+                            let formDataa = new FormData();
+                            formDataa.append('file', file);
+                            formDataa.append('email', '<%= data.email %>');
+                            let update = new XMLHttpRequest();
+                            update.open('PUT', '/profile/updatepic', true);
+                            update.onreadystatechange = function () {
+                                if (update.readyState === XMLHttpRequest.DONE && update
+                                    .status === 200) {
+                                    console.log("asdadsasdasd")
+                                    console.log(update.responseText)
+                                    let str = update.responseText;
+                                    let done = "./" + str.substring(12);
+                                    // document.getElementById("profilepic").src = null
+                                    document.getElementById("profilepic").src = done +
+                                        `?${(new Date).getTime()}` //"refreshing" the img src/img tag without refreshing the whole page
+                                    // document.getElementById("profilepic").src = document.getElementById("profilepic").src 
+                                }
+                            }
+
+                            update.send(formDataa);
+
+                        } else {
                             let str = xhr.responseText;
                             let done = "./" + str.substring(12);
                             document.getElementById("profilepic").src = done
                         }
-                    };
-                    xhr.send(formData);
-                })
-
-                
+                    }
+                };
+                xhr.send(formData);
             })
 
 
-            // window.history.pushState({}, document.title, "/");
-        </script>
+        })
+
+
+        // window.history.pushState({}, document.title, "/");
+    </script>
     </div>
 </body>
 

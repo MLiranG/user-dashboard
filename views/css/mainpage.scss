@@ -1,0 +1,185 @@
+#spacer1 {
+    height: 10vh;
+}
+
+#spacer2 {
+    height: 13vh;
+}
+
+#spacer3 {
+    height: 16vh;
+}
+
+#spacer4 {
+    height: 20vh;
+}
+
+// =====================================================
+// =====================================================
+
+body {
+    padding: 1vw;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 1rem 0 0;
+
+    .jumbotron {
+        height: 70vh;
+
+        h1.display-4 {
+            transform: translate(0%, -85%);
+        }
+    }
+
+}
+
+//main header
+.display-4 {
+    margin-top: 0em;
+    font-size: 6vh;
+}
+
+
+// profilepic
+section#profile {
+
+    .container:nth-child(1) {
+        margin-top: -4vw;
+        // height: 5vw;
+        // width: 42vw;
+    }
+
+    .row {
+        display: inline;
+        text-align: center;
+    }
+
+    .ele {
+        display: inline-block;
+        margin-right: 6px;
+        background-color: #EEE;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    img#profilepic {
+        // position: absolute;
+        height: 10vh;
+        width: 10vh;
+        // left: 50%;
+    }
+
+    .input {
+        // position: absolute;
+        // top: 40%;
+        // left: 50%;
+        // transform: translate(-50%, -120%);
+        // -ms-transform: translate(-50%, -120%);
+        background-color: #555;
+        color: white;
+        font-size: 16px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 1rem;
+        // text-align: center;
+        // width: 10%;
+    }
+
+}
+
+// "things on me"
+section#onme {
+    h2 {
+        transform: translate(-38%, 1%);
+        // display: none;
+    }
+
+    .infor {
+        transform: translate(-42%, 1%);
+        // display: none;
+    }
+
+    h4 ul {
+        margin-top: -1vw;
+        padding-left: 6vw;
+    }
+
+    .handle {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    section#onme {
+
+        h4 ul {
+            padding-left: 10vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    section#onme {
+
+        h4 ul {
+            padding-left: 12vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    section#onme {
+
+        h4 ul {
+            padding-left: 13vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .container {
+        margin-top: -3vw;
+        .jumbotron { 
+            height: 90vh;
+        }
+    }
+
+    section#onme {
+        >h2 {
+            transform: translate(-30%, 1%);
+        }
+
+        h4 ul {
+            padding-left: 25vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    section#profile {
+        .container:nth-child(1) {
+            margin-top: -18vw;
+            // height: 5vw;
+            // width: 42vw;
+        }
+
+        .input {
+            font-size: 0.7rem;
+        }
+    }
+
+    section#onme {
+        >h2 {
+            transform: translate(-22%, 1%); 
+        }
+        .infor {
+            transform: translate(-44%, 1%);
+        }
+    }
+}

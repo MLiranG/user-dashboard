@@ -1,5 +1,7 @@
 CREATE TABLE `register` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `name` mediumtext,
+  `phonenum` varchar(15) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
   `password` char(128) NOT NULL,
   `salt` longtext,
