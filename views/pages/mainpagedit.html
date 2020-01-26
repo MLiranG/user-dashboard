@@ -30,7 +30,7 @@
                                     id="profilepic" height="100" width="100"></div>
                         </div>
                     </div>
-                    <!-- <div class='container'>
+                    <div class='container'>
                         <div class='row'>
                             <div class='ele'><input type="file" id="fileinput" class="edit input prof" name="put_name"
                                     value="as" /></div>
@@ -41,7 +41,7 @@
                             <div class='ele'><button name="put_submit" class="edit input prof">Save Changes</button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                 </section>
                 <div id="spacer3"></div>
@@ -58,10 +58,25 @@
                     <h4 id="school" class="editvis infor">School:</h4>
                     <h4 id="hobbies" class="editvis infor">Hobbies:
                         <h2 id="err1"></h2>
-                        <ul id="hobbieslist"> 
+                        <ul>
                             <li></li>
                             <li></li>
                             <li></li>
+                        </ul>
+                    </h4>
+
+                    <h4 id="nameedit" class="editvis infor inforedit">Name:<input type="text" class="foredit"
+                            placeholder="Edit NAME" /></h4>
+                    <h4 id="cityedit" class="editvis infor inforedit">City:<input type="text" class="foredit"
+                            placeholder="Edit City" /></h4>
+                    <h4 id="schooledit" class="editvis infor inforedit">School:<input type="text" class="foredit"
+                            placeholder="Edit SCHOOL" /></h4>
+                    <h4 id="hobbiesedit" class="editvis infor inforedit">Hobbies:
+                        <h2 id="err1"></h2>
+                        <ul>
+                            <li><input type="text" class="foredit" placeholder="Edit HOBBIE1" /></li>
+                            <li><input type="text" class="foredit" placeholder="Edit HOBBIE2" /></li>
+                            <li><input type="text" class="foredit" placeholder="Edit HOBBIE3" /></li>
                         </ul>
                     </h4>
                 </section>
@@ -79,8 +94,8 @@
 
     <script>
         $(document).ready(function () {
-            window.history.pushState({}, document.title, "/profile");
-            console.log('<%= data.email %>')
+            window.history.pushState({}, document.title, "/profile/edit");
+            console.log('<%= email %>')
             $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function (data) {
                 // console.log(data.profilepic)
                 let done = "./uploads/" + data.profilepic;
@@ -112,7 +127,6 @@
                     $('#hobbies').html(`${$('#hobbies').html()} ${hobbies}`)
                 } else {
                     $('#hobbies').hide();
-                    $('#hobbieslist').hide()
                 }
             })
 
@@ -167,24 +181,21 @@
 
             //edit mode!
             $('button[name=enter_editmode]').click(function () {
-
-                window.location.href = `/profile/edit/${data.email}`
-
-                // console.log(document.getElementById('editmode').style.display)
-                // if (document.getElementById('editmode').style.display == "block") {
-                //     $('#editmode')
-                //     .hide() //if hidden then editmode is on, and if showed then editmode is off
-                //     $('.foredit').show()
-                //     $('.infor').hide()
-                //     $('.infor').hide()
-                //     $('.inforedit').show()
-                // } else {
-                //     $('#editmode')
-                //     .show() //if hidden then editmode is on, and if showed then editmode is off
-                //     $('.foredit').hide()
-                //     $('.inforedit').hide()
-                //     $('.infor').show()
-                // }
+                console.log(document.getElementById('editmode').style.display)
+                if (document.getElementById('editmode').style.display == "block") {
+                    $('#editmode')
+                    .hide() //if hidden then editmode is on, and if showed then editmode is off
+                    $('.foredit').show()
+                    $('.infor').hide()
+                    $('.infor').hide()
+                    $('.inforedit').show()
+                } else {
+                    $('#editmode')
+                    .show() //if hidden then editmode is on, and if showed then editmode is off
+                    $('.foredit').hide()
+                    $('.inforedit').hide()
+                    $('.infor').show()
+                }
 
             })
 

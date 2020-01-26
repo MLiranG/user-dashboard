@@ -41,6 +41,11 @@ body {
     font-size: 6vh;
 }
 
+#up {
+    position: absolute;
+    margin-left: -37vw;
+    margin-top: -3.8vw;
+}
 
 // profilepic
 section#profile {
@@ -101,19 +106,37 @@ section#onme {
     }
 
     .infor {
-        transform: translate(-42%, 1%);
+        transform: translate(-40%, 1%);
+        // display: list-item;
+        // padding-left: -50vw;
         // display: none;
     }
 
     h4 ul {
         margin-top: -1vw;
-        padding-left: 6vw;
+        padding-left: 64vh;
     }
 
-    .handle {
+    .err {
+        display: none;
+    }
+
+    #err {
         display: none;
     }
 }
+
+//edit mode(!)
+.edit {
+    display: none;
+}
+
+.foredit {
+    display: none;
+    position: relative;
+}
+
+// media querys!
 
 @media only screen and (max-width: 1024px) {
     section#onme {
@@ -145,7 +168,8 @@ section#onme {
 @media only screen and (max-width: 576px) {
     .container {
         margin-top: -3vw;
-        .jumbotron { 
+
+        .jumbotron {
             height: 90vh;
         }
     }
@@ -176,8 +200,9 @@ section#onme {
 
     section#onme {
         >h2 {
-            transform: translate(-22%, 1%); 
+            transform: translate(-22%, 1%);
         }
+
         .infor {
             transform: translate(-44%, 1%);
         }

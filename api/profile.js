@@ -53,6 +53,10 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         }
     })
 
+    //  page itself
+    //  ========================================
+    //  requests
+
     app.put('/profile/uploadpic', (req, res) => {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(400) //.send('No files were uploaded.');
@@ -122,6 +126,23 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         })
     })
 
+    app.get('/profile/get/personal-details/:email', (req, res) => {
+        connection.query(`SELECT * FROM userinfo WHERE email='${req.params.email}'`, (err, rows, fields) => {
+            if (err) {
+                console.error(err);
+            } else {
+                if (rows[0]) {
+                    res.send(rows[0])
+                } else {
+                    res.send("nodata")
+                }
+            }
+        })
+    })
 
-
+    app.get('/profile/edit/:email', (req, res) => {
+        app.render('mainpagedit.html', {
+            email: req.params.email
+        })
+    })
 }

@@ -37,6 +37,12 @@ body {
   font-size: 6vh;
 }
 
+#up {
+  position: absolute;
+  margin-left: -37vw;
+  margin-top: -3.8vw;
+}
+
 section#profile .container:nth-child(1) {
   margin-top: -4vw;
 }
@@ -78,17 +84,30 @@ section#onme h2 {
 }
 
 section#onme .infor {
-  -webkit-transform: translate(-42%, 1%);
-          transform: translate(-42%, 1%);
+  -webkit-transform: translate(-40%, 1%);
+          transform: translate(-40%, 1%);
 }
 
 section#onme h4 ul {
   margin-top: -1vw;
-  padding-left: 6vw;
+  padding-left: 64vh;
 }
 
-section#onme .handle {
+section#onme .err {
   display: none;
+}
+
+section#onme #err {
+  display: none;
+}
+
+.edit {
+  display: none;
+}
+
+.foredit {
+  display: none;
+  position: relative;
 }
 
 @media only screen and (max-width: 1024px) {
