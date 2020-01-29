@@ -32,13 +32,13 @@
                     </div>
                     <div class='container'>
                         <div class='row'>
-                            <div class='ele'><input type="file" id="fileinput" class="edit input prof" name="put_name"
+                            <div class='ele'><input type="file" id="fileinput" class=" input prof" name="put_name"
                                     value="as" /></div>
                         </div>
                     </div>
                     <div class='container'>
                         <div class='row'>
-                            <div class='ele'><button name="put_submit" class="edit input prof">Save Changes</button>
+                            <div class='ele'><button name="put_submit" class=" input prof">Save Changes</button>
                             </div>
                         </div>
                     </div>
@@ -53,17 +53,6 @@
                         <hr>
                     </div>
                     <h2>Details on me</h2>
-                    <h4 id="name" class="editvis infor">Name:</h4>
-                    <h4 id="city" class="editvis infor">City:</h4>
-                    <h4 id="school" class="editvis infor">School:</h4>
-                    <h4 id="hobbies" class="editvis infor">Hobbies:
-                        <h2 id="err1"></h2>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </h4>
 
                     <h4 id="nameedit" class="editvis infor inforedit">Name:<input type="text" class="foredit"
                             placeholder="Edit NAME" /></h4>
@@ -77,6 +66,7 @@
                             <li><input type="text" class="foredit" placeholder="Edit HOBBIE1" /></li>
                             <li><input type="text" class="foredit" placeholder="Edit HOBBIE2" /></li>
                             <li><input type="text" class="foredit" placeholder="Edit HOBBIE3" /></li>
+                            <li><button>Add new hobbie</button>Add </li>
                         </ul>
                     </h4>
                 </section>
@@ -95,14 +85,15 @@
     <script>
         $(document).ready(function () {
             window.history.pushState({}, document.title, "/profile/edit");
+            console.log("AAA")
             console.log('<%= email %>')
-            $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function (data) {
+            $.get(`/profile/pictures/findpic/` + '<%= email %>', function (data) {
                 // console.log(data.profilepic)
                 let done = "./uploads/" + data.profilepic;
                 document.getElementById("profilepic").src = done
             })
 
-            $.get(`/profile/get/personal-details/` + '<%= data.email %>', function (data) {
+            $.get(`/profile/get/personal-details/` + '<%= email %>', function (data) {
                 console.log(data)
                 let name = data.name
                 let city = data.city
@@ -136,7 +127,7 @@
                 let file = fileInput.files[0];
                 let formData = new FormData();
                 formData.append('file', file);
-                formData.append('email', '<%= data.email %>');
+                formData.append('email', '<%= email %>');
 
                 let xhr = new XMLHttpRequest();
                 xhr.open('PUT', '/profile/uploadpic', true);
@@ -148,7 +139,7 @@
                             // document.getElementById('errmsg').innerHTML = "ERROR: There is already a picture for this user"
                             let formDataa = new FormData();
                             formDataa.append('file', file);
-                            formDataa.append('email', '<%= data.email %>');
+                            formDataa.append('email', '<%= email %>');
                             let update = new XMLHttpRequest();
                             update.open('PUT', '/profile/updatepic', true);
                             update.onreadystatechange = function () {
@@ -180,24 +171,24 @@
 
 
             //edit mode!
-            $('button[name=enter_editmode]').click(function () {
-                console.log(document.getElementById('editmode').style.display)
-                if (document.getElementById('editmode').style.display == "block") {
-                    $('#editmode')
-                    .hide() //if hidden then editmode is on, and if showed then editmode is off
-                    $('.foredit').show()
-                    $('.infor').hide()
-                    $('.infor').hide()
-                    $('.inforedit').show()
-                } else {
-                    $('#editmode')
-                    .show() //if hidden then editmode is on, and if showed then editmode is off
-                    $('.foredit').hide()
-                    $('.inforedit').hide()
-                    $('.infor').show()
-                }
+            // $('button[name=enter_editmode]').click(function () {
+            //     console.log(document.getElementById('editmode').style.display)
+            //     if (document.getElementById('editmode').style.display == "block") {
+            //         $('#editmode')
+            //         .hide() //if hidden then editmode is on, and if showed then editmode is off
+            //         $('.foredit').show()
+            //         $('.infor').hide()
+            //         $('.infor').hide()
+            //         $('.inforedit').show()
+            //     } else {
+            //         $('#editmode')
+            //         .show() //if hidden then editmode is on, and if showed then editmode is off
+            //         $('.foredit').hide()
+            //         $('.inforedit').hide()
+            //         $('.infor').show()
+            //     }
 
-            })
+            // })
 
         })
 

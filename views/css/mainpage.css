@@ -37,12 +37,6 @@ body {
   font-size: 6vh;
 }
 
-#up {
-  position: absolute;
-  margin-left: -37vw;
-  margin-top: -3.8vw;
-}
-
 section#profile .container:nth-child(1) {
   margin-top: -4vw;
 }
@@ -88,6 +82,10 @@ section#onme .infor {
           transform: translate(-40%, 1%);
 }
 
+section#onme .infor ul {
+  font-size: larger;
+}
+
 section#onme h4 ul {
   margin-top: -1vw;
   padding-left: 64vh;
@@ -105,9 +103,18 @@ section#onme #err {
   display: none;
 }
 
+.edit * {
+  display: none;
+}
+
 .foredit {
   display: none;
   position: relative;
+}
+
+.inforedit {
+  -webkit-transform: translate(-40%, 1%);
+          transform: translate(-40%, 1%);
 }
 
 @media only screen and (max-width: 1024px) {

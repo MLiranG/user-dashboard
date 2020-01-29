@@ -21,6 +21,14 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
             .slice(0, length); /** return required number of characters */
     };
 
+    function parseJwt(token) {
+        try {
+          return JSON.parse(atob(token.split('.')[1]));
+        } catch (e) {
+          return null;
+        }
+      };
+
     app.get('/profile/callback/:token', (req, res, next) => {
         console.log('asdsadsdaasdasddasasd')
         let token = req.params.token;
@@ -141,8 +149,9 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
     })
 
     app.get('/profile/edit/:email', (req, res) => {
-        app.render('mainpagedit.html', {
-            email: req.params.email
-        })
+        console.log("asddasasddsa")
+        res.render('mainpagedit.html', {
+           email: req.params.email
+       })
     })
 }

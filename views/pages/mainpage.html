@@ -14,10 +14,11 @@
 
 <body>
     <div class="container">
+        <button id="up" name="enter_editmode">Edit mode!</button>
         <div class="jumbotron text-center">
             <div class="alert alert-danger" role="alert" style="display: none;" id="errmsg"></div>
             <p id="editmode" style="position: absolute;display: block;"></p>
-            <button id="up" name="enter_editmode">Edit mode!</button>
+
             <br>
             <h1 class="display-4">My profile</h1>
             <br>
@@ -30,7 +31,7 @@
                                     id="profilepic" height="100" width="100"></div>
                         </div>
                     </div>
-                    <!-- <div class='container'>
+                    <div class='container'>
                         <div class='row'>
                             <div class='ele'><input type="file" id="fileinput" class="edit input prof" name="put_name"
                                     value="as" /></div>
@@ -41,7 +42,7 @@
                             <div class='ele'><button name="put_submit" class="edit input prof">Save Changes</button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                 </section>
                 <div id="spacer3"></div>
@@ -53,17 +54,27 @@
                         <hr>
                     </div>
                     <h2>Details on me</h2>
-                    <h4 id="name" class="editvis infor">Name:</h4>
-                    <h4 id="city" class="editvis infor">City:</h4>
-                    <h4 id="school" class="editvis infor">School:</h4>
-                    <h4 id="hobbies" class="editvis infor">Hobbies:
+                    <h4 id="name" class="infor">Name:</h4>
+                    <h4 id="city" class="infor">City:</h4>
+                    <h4 id="school" class="infor">School:</h4>
+                    <h4 id="hobbies" class="infor">Hobbies:
                         <h2 id="err1"></h2>
-                        <ul id="hobbieslist"> 
-                            <li></li>
-                            <li></li>
-                            <li></li>
+                        <ul id="hobbieslist" class="infor">
+                            <li>ad</li>
                         </ul>
                     </h4>
+
+                    <!-- <h4 id="name" class="edit inforedit">Name:</h4>
+                    <h4 id="city" class="edit inforedit">City:</h4>
+                    <h4 id="school" class="edit inforedit">School:</h4>
+                    <div class="edit">
+                        <h4 id="hobbies" class="edit inforedit">Hobbies:
+                            <h2 id="err1"></h2>
+                            <ul id="hobbieslist">
+                                <li></li>
+                            </ul>
+                        </h4>
+                    </div> -->
                 </section>
             </div>
         </div>
@@ -95,21 +106,25 @@
                 let hobbies = data.hobbies
                 if (name !== null) {
                     $('#name').html(`${$('#name').html()} ${name}`)
+                    $("#name").attr("id","active");
                 } else {
                     $('#name').hide();
                 }
                 if (city !== null) {
                     $('#city').html(`${$('#city').html()} ${city}`)
+                    $('#city').attr("id","active");
                 } else {
                     $('#city').hide();
                 }
                 if (school !== null) {
                     $('#school').html(`${$('#school').html()} ${school}`)
+                    $("#school").attr("id","active");
                 } else {
                     $('#school').hide();
                 }
                 if (hobbies !== null) {
                     $('#hobbies').html(`${$('#hobbies').html()} ${hobbies}`)
+                    $('#hobbies').attr("id","active");
                 } else {
                     $('#hobbies').hide();
                     $('#hobbieslist').hide()
@@ -167,24 +182,23 @@
 
             //edit mode!
             $('button[name=enter_editmode]').click(function () {
-
-                window.location.href = `/profile/edit/${data.email}`
-
                 // console.log(document.getElementById('editmode').style.display)
-                // if (document.getElementById('editmode').style.display == "block") {
-                //     $('#editmode')
-                //     .hide() //if hidden then editmode is on, and if showed then editmode is off
-                //     $('.foredit').show()
-                //     $('.infor').hide()
-                //     $('.infor').hide()
-                //     $('.inforedit').show()
-                // } else {
-                //     $('#editmode')
-                //     .show() //if hidden then editmode is on, and if showed then editmode is off
-                //     $('.foredit').hide()
-                //     $('.inforedit').hide()
-                //     $('.infor').show()
-                // }
+                if (document.getElementById('editmode').style.display == "block") {
+                    console.log("EDITMODEON")
+                    $('#editmode')
+                        .hide() //if hidden then editmode is on, and if showed then editmode is off
+                    // $('.edit').show()
+                    // $('.infor').hide()
+                    // $('.inforedit').show()
+
+                } else {
+                    console.log("EDITMODEOFF")
+                    $('#editmode')
+                        .show() //if hidden then editmode is on, and if showed then editmode is off
+                    // $('.edit').hide()
+                    // $('.infor').show()
+                    // $('.inforedit').hide()
+                }
 
             })
 

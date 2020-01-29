@@ -41,11 +41,11 @@ body {
     font-size: 6vh;
 }
 
-#up {
-    position: absolute;
-    margin-left: -37vw;
-    margin-top: -3.8vw;
-}
+// #up {
+//     position: absolute;
+//     margin-left: -37vw;
+//     margin-top: -3.8vw;
+// }
 
 // profilepic
 section#profile {
@@ -107,6 +107,9 @@ section#onme {
 
     .infor {
         transform: translate(-40%, 1%);
+        ul {
+            font-size: larger;
+        }
         // display: list-item;
         // padding-left: -50vw;
         // display: none;
@@ -128,12 +131,22 @@ section#onme {
 
 //edit mode(!)
 .edit {
+    * {
+        display: none;
+    }
     display: none;
 }
 
 .foredit {
     display: none;
     position: relative;
+}
+
+.inforedit {
+    transform: translate(-40%, 1%);
+    // display: list-item;
+    // padding-left: -50vw;
+    // display: none;
 }
 
 // media querys!
