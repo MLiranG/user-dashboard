@@ -32,11 +32,11 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
     app.get('/profile/callback/:token', (req, res, next) => {
         console.log('asdsadsdaasdasddasasd')
         let token = req.params.token;
-        let data = jwt.decode(token, process.env.secret);
+        let data = jwt.decode(token, conf.secret);
         console.log(data)
         console.log(req.session)
 
-        let tokena = jwt.encode(data, process.env.secret);
+        let tokena = jwt.encode(data, conf.secret);
 
         req.session.data = tokena
 
@@ -50,7 +50,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
 
     app.get('/profile', (req, res) => {
         if (req.session.data) {
-            let data = jwt.decode(req.session.data, process.env.secret);
+            let data = jwt.decode(req.session.data, conf.secret);
             console.log("asddasdasadssda \n")
             console.log(data)
             res.render('mainpage.html', {
