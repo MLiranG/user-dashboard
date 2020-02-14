@@ -26,11 +26,11 @@
                     <label>Email</label>
                     <input type="text" class="form-control" name="email" id="emaillogin">
                     <br>
-                    <button onclick='window.location.href = `http:\/\/localhost:8080/resend/verify/${document.getElementById("emaillogin").value}`' id="loginbutton"
+                    <button onclick='window.location.href = `${location.hostname} + /resend/verify/${document.getElementById("emaillogin").value}`' id="loginbutton"
                         class="btn btn-warning btn-lg">Resend!</button>
                 </div>
 
-                <a onclick="window.location.href = `http:\/\/localhost:8080`" class="btn btn-default"><span
+                <a onclick="window.location.href = `${location.hostname}`" class="btn btn-default"><span
                         class="fa fa-user"></span>
                     Back to home</a>
 
@@ -60,7 +60,7 @@
                         class="btn btn-warning btn-lg">Reset password</button>
                 </div>
 
-                <a onclick="window.location.href = `http:\/\/localhost:8080`" class="btn btn-default"><span
+                <a onclick="window.location.href = `${location.hostname}`" class="btn btn-default"><span
                         class="fa fa-user"></span>
                     Back to home</a>
                 <% } %>
@@ -93,7 +93,7 @@
 
         function sign(email) {
             // $.get(`/resend/verify/${email}/`)
-            window.location.href = `http:\/\/localhost:8080/resend/verify/${email}`
+            window.location.href = `${location.hostname} + /resend/verify/${email}`
             alert('confirmed')
         }
     </script>
