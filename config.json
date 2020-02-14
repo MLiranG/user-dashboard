@@ -1,0 +1,5 @@
+{
+    "secret": process.env.secret,
+    "mailpass": process.env.mailpass,
+    "sqlpass": process.env.sqlpass
+}
