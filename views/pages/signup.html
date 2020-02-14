@@ -43,11 +43,11 @@
                 <hr>
 
                 <p>Already have an account? <a
-                        onclick="window.location.href = `http:\/\/localhost:8080/login`">Login</a></p>
+                        onclick="window.location.href = `${location.hostname} + /login`">Login</a></p>
                 <p>You didn't got a verification email? <a
-                        onclick='window.location.href = `http:\/\/localhost:8080/resend/verify`'>Click here for a
+                        onclick='window.location.href = `${location.hostname} + /resend/verify`'>Click here for a
                         resend</a></p>
-                <p>Or go <a onclick="window.location.href = `http:\/\/localhost:8080/`">home</a>.</p>
+                <p>Or go <a onclick="window.location.href = `${location.hostname}`">home</a>.</p>
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@
                 //     console.log(data);
                 // });
 
-                $.post("http://localhost:8080/signup", {
+                $.post(location.hostname + "/signup", {
                     email: $("input[name='email']")[0].value,
                     password: $("input[name='password']")[0].value,
                     name: $("input[name='name']")[0].value,
