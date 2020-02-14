@@ -25,7 +25,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'LiranForweb@gmail.com',
-      pass: conf.mailpass
+      pass: process.env.mailpass
     }
   });
 
@@ -33,11 +33,11 @@ const connection = sql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'm1',
-    password: conf.sqlpass
+    password: process.env.sqlpass
 });
 
 app.use(session({
-  secret: conf.secret,
+  secret: process.env.secret,
   resave: false,
   saveUninitialized: true,
   cookie: {} //in prod it will be {secure: true}
