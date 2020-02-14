@@ -55,8 +55,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(fileUpload())
 
-require('./api/router.js')(app, passport, cookies, connection, crypto, conf, transporter, jwt, moment, fetch, request); //bodyParser
-require('./api/profile.js')(app, passport, cookies, connection, crypto, conf, transporter, jwt, moment, fetch, request, path, fs, multer);
+require('./api/router.js')(app, passport, cookies, connection, crypto, conf, transporter, jwt, moment, request); //bodyParser
+require('./api/profile.js')(app, passport, cookies, connection, crypto, conf, transporter, jwt, moment, request, path, fs, multer);
 
 // require('./views/app.js')
 
