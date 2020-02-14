@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request, path, fs, multer) {
+module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, request, path, fs, multer) {
 
     const handleError = (err, res) => {
         res
