@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const conf = require('./config.json')
+//const conf = require('./config.json') //if prod then ignore it
 const jwt = require('jwt-simple')
 const fetch = require("node-fetch")
 const request = require('request');
@@ -55,8 +55,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(fileUpload())
 
-require('./api/router.js')(app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request); //bodyParser
-require('./api/profile.js')(app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request, path, fs, multer);
+require('./api/router.js')(app, passport, cookies, connection, crypto, transporter, jwt, moment, fetch, request); //bodyParser, if prod: conf
+require('./api/profile.js')(app, passport, cookies, connection, crypto, transporter, jwt, moment, fetch, request, path, fs, multer); //if prod: conf
 
 // require('./views/app.js')
 
