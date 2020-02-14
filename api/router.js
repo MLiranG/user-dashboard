@@ -1,4 +1,4 @@
-module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, fetch, request) {
+module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, request) {
 
     function createsalt(length) {
         return crypto.randomBytes(Math.ceil(length / 2))
