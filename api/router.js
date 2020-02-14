@@ -34,7 +34,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                         let info = {};
                         info.user = email;
                         info.expiry = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-                        let token = jwt.encode(info, conf.secret);
+                        let token = jwt.encode(info, process.env.secret);
                         console.log("http://localhost:8080/verify/register/" + token);
 
                         transporter.sendMail({
