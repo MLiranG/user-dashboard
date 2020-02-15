@@ -1,4 +1,5 @@
 const fs = require("fs")
+const conf = require('../config.js')
 
 module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, request, path, fs, multer) {
 
