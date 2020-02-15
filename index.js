@@ -29,7 +29,7 @@ var transporter = nodemailer.createTransport({
     }
   });
 
-const connection = sql.createConnection({
+const connection = sql.createPool({
     host: conf.sqlhost,
     user: conf.sqluser,
     database: conf.sqldb,
