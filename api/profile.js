@@ -1,7 +1,7 @@
 const fs = require("fs")
 const conf = require('../config.js')
 
-module.exports = function (app, passport, cookies, connection, crypto, transporter, jwt, moment, request, path, fs, multer) {
+module.exports = function (app, passport, cookies, connection, crypto, jwt, transporter, moment, request, path, fs, multer) {
 
     console.log("profile.js loaded")
 

@@ -1,6 +1,6 @@
 const conf = require('../config.js')
 
-module.exports = function (app, passport, cookies, connection, crypto, transporter, jwt, moment, request) {
+module.exports = function (app, passport, cookies, connection, crypto, jwt, transporter, moment, request) {
 
     console.log("router.js loaded")
 
@@ -41,6 +41,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                         info.expiry = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
                         console.log(info)
                         console.log(conf.secret)
+                        console.log(transporter)
                         let token = jwt.encode(info, conf.secret);
                         console.log("http://localhost:8080/verify/register/" + token);
 

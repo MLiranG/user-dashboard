@@ -6,65 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="/">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="css/mainpage.css">
     <title>Document</title>
 </head>
 
 <body>
     <div class="container">
-        <button id="up" name="enter_editmode">Edit mode!</button>
-        <div class="jumbotron text-center">
-            <div class="alert alert-danger" role="alert" style="display: none;" id="errmsg"></div>
-            <p id="editmode" style="position: absolute;display: block;"></p>
+        <!-- <div class="jumbotron text-center"> -->
+        <div class="alert alert-danger" role="alert" style="display: none;" id="errmsg"></div>
+        <p id="editmode" style="position: absolute;display: block;"></p>
+        <br>
+        <hr>
+        <h1 class="main">MY PROFILE</h1>
+        <hr>
+        <div class="form-group">
 
-            <br>
-            <h1 class="display-4">My profile</h1>
-            <br>
-            <div class="form-group">
-
-                <section id="profile">
-                    <div class='container'>
-                        <div class='row'>
-                            <div class='ele'><img src="../../api/uploads/image.png" class="img-fluid prof"
-                                    id="profilepic" height="100" width="100"></div>
+            <section id="profile">
+                <div class='tab'>
+                    <div class='row'>
+                        <div class='ele'><img src="../../api/uploads/image.png" class="img-fluid prof" id="profilepic"
+                                height="100" width="100"></div>
+                    </div>
+                    <div class='row'>
+                        <div class='elem'><input type="file" id="fileinput" class="edit input prof" name="put_name"
+                                value="as" /></div>
+                    </div>
+                    <br>
+                    <div class='row'>
+                        <div class='elem'><button name="put_submit" class="edit input prof">Save Changes</button>
                         </div>
                     </div>
-                    <div class='container'>
-                        <div class='row'>
-                            <div class='ele'><input type="file" id="fileinput" class="edit input prof" name="put_name"
-                                    value="as" /></div>
-                        </div>
-                    </div>
-                    <div class='container'>
-                        <div class='row'>
-                            <div class='ele'><button name="put_submit" class="edit input prof">Save Changes</button>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </section>
 
-                </section>
-                <div id="spacer3"></div>
-                <section id="onme">
-                    <div class="err">
-                        <hr>
-                        <h1>MSG</h1>
-                        <button name="enter_editmode">Edit mode!</button>
-                        <hr>
-                    </div>
+            <!-- <div id="spacer3"></div> -->
+            <section id="onme">
+                <!-- <div class="err main">
+                    <hr>
+                    <h1>MSG</h1>
+                    <button name="enter_editmode">Edit mode!</button>
+                    <hr>
+                </div> -->
+                <div class="det">
                     <h2>Details on me</h2>
-                    <h4 id="name" class="infor">Name:</h4>
-                    <h4 id="city" class="infor">City:</h4>
-                    <h4 id="school" class="infor">School:</h4>
-                    <h4 id="hobbies" class="infor">Hobbies:
+                    <h4 id="namehold" class="infor">Name: <p id="name"></p><input type="text" class="foredit"
+                            placeholder="Edit NAME" /></h4>
+                    <h4 id="cityhold" class="infor">City: <p id="city"></p><input type="text" class="foredit"
+                            placeholder="Edit CITY" /></h4>
+                    <h4 id="schoolhold" class="infor">School: <p id="school"></p><input type="text" class="foredit"
+                            placeholder="Edit SCHOOL" /></h4>
+                    <h4 id="hobbieshold" class="infor">Hobbies:
                         <h2 id="err1"></h2>
                         <ul id="hobbieslist" class="infor">
-                            <li>ad</li>
+                            <li><input type="text" class="foredit" placeholder="Edit HOBBIE1" /></li>
                         </ul>
                     </h4>
-
-                    <!-- <h4 id="name" class="edit inforedit">Name:</h4>
+                </div>
+                <!-- <h4 id="name" class="edit inforedit">Name:</h4>
                     <h4 id="city" class="edit inforedit">City:</h4>
                     <h4 id="school" class="edit inforedit">School:</h4>
                     <div class="edit">
@@ -75,9 +75,9 @@
                             </ul>
                         </h4>
                     </div> -->
-                </section>
-            </div>
+            </section>
         </div>
+        <!-- </div> -->
 
 
     </div>
@@ -92,11 +92,6 @@
         $(document).ready(function () {
             window.history.pushState({}, document.title, "/profile");
             console.log('<%= data.email %>')
-            $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function (data) {
-                // console.log(data.profilepic)
-                let done = "./uploads/" + data.profilepic;
-                document.getElementById("profilepic").src = done
-            })
 
             $.get(`/profile/get/personal-details/` + '<%= data.email %>', function (data) {
                 console.log(data)
@@ -106,30 +101,37 @@
                 let hobbies = data.hobbies
                 if (name !== null) {
                     $('#name').html(`${$('#name').html()} ${name}`)
-                    $("#name").attr("id","active");
+                    $("#name").attr("id", "active");
                 } else {
-                    $('#name').hide();
+                    $('#namehold').hide();
                 }
                 if (city !== null) {
                     $('#city').html(`${$('#city').html()} ${city}`)
-                    $('#city').attr("id","active");
+                    $('#city').attr("id", "active");
                 } else {
-                    $('#city').hide();
+                    $('#cityhold').hide();
                 }
                 if (school !== null) {
                     $('#school').html(`${$('#school').html()} ${school}`)
-                    $("#school").attr("id","active");
+                    $("#school").attr("id", "active");
                 } else {
-                    $('#school').hide();
+                    $('#schoolhold').hide();
                 }
                 if (hobbies !== null) {
                     $('#hobbies').html(`${$('#hobbies').html()} ${hobbies}`)
-                    $('#hobbies').attr("id","active");
+                    $('#hobbies').attr("id", "active");
                 } else {
-                    $('#hobbies').hide();
+                    $('#hobbieshold').hide();
                     $('#hobbieslist').hide()
                 }
             })
+
+            $.get(`/profile/pictures/findpic/` + '<%= data.email %>', function (data) {
+                // console.log(data.profilepic)
+                let done = "./uploads/" + data.profilepic;
+                document.getElementById("profilepic").src = done
+            })
+
 
             $("button[name=put_submit]").click(function () {
                 console.log('Submit button clicked')
@@ -187,6 +189,7 @@
                     console.log("EDITMODEON")
                     $('#editmode')
                         .hide() //if hidden then editmode is on, and if showed then editmode is off
+                    $(".foredit").show()
                     // $('.edit').show()
                     // $('.infor').hide()
                     // $('.inforedit').show()
@@ -195,6 +198,7 @@
                     console.log("EDITMODEOFF")
                     $('#editmode')
                         .show() //if hidden then editmode is on, and if showed then editmode is off
+                    $(".foredit").hide()
                     // $('.edit').hide()
                     // $('.infor').show()
                     // $('.inforedit').hide()

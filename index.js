@@ -1,3 +1,5 @@
+// const dotenv = require('dotenv');
+// dotenv.config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8080;
@@ -10,7 +12,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const conf = require('./config.js')
 const jwt = require('jwt-simple')
 //const fetch = require("node-fetch")
 const request = require('request');
@@ -19,8 +20,11 @@ const methodOverride = require('method-override');
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const conf = require('./config.js')
 // var router = require('./api/router.js')
 
+// console.log(conf)
+// console.log(jwt.encode("a", conf.secret))
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -55,8 +59,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(fileUpload())
 
-require('./api/router.js')(app, passport, cookies, connection, crypto, conf, transporter, jwt, moment, request); //bodyParser
-require('./api/profile.js')(app, passport, cookies, connection, crypto, conf, transporter, jwt, moment, request, path, fs, multer);
+require('./api/router.js')(app, passport, cookies, connection, crypto, jwt, transporter, moment, request); //bodyParser
+require('./api/profile.js')(app, passport, cookies, connection, crypto, jwt, transporter, moment, request, path, fs, multer);
 
 // require('./views/app.js')
 
