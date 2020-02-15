@@ -200,7 +200,6 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
 
     app.get('/', (req, res) => {
         res.render('index.html')
-        console.log("/ got it")
     })
 
     app.get('/signup', (req, res) => {

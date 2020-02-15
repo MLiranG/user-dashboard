@@ -59,7 +59,7 @@
                     "A parameter is missing, please check your email or your password"
             } else {
 
-                $.post("http://localhost:8080/login", {
+                $.post("/login", {
                     email: $("input[name='email']")[0].value,
                     password: $("input[name='password']")[0].value
                 }, function (data) {
@@ -68,7 +68,7 @@
                         document.getElementById("errmsg").innerHTML =
                             "This password is incorrect, please check it again"
                         document.getElementById("errmsg").style = "display: block;"
-                    } else if (data.includes("http://localhost:8080/profile/callback/")) {
+                    } else if (data.includes("/profile/callback/")) {
                         console.log(data)
                         window.location.href = data
                     }

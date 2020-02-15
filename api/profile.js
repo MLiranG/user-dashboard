@@ -150,10 +150,10 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
         })
     })
 
-    app.get('/profile/edit/:email', (req, res) => {
-        console.log("asddasasddsa")
-        res.render('mainpagedit.html', {
-           email: req.params.email
-       })
-    })
+    // app.get('/profile/edit/:email', (req, res) => {
+    //     console.log("asddasasddsa")
+    //     res.render('mainpagedit.html', {
+    //        email: req.params.email
+    //    })
+    // })
 }
