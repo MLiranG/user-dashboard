@@ -231,7 +231,7 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                     console.log(rows)
                     res.send("registered")
                 } else {
-                    connection.query(`INSERT INTO register(name, phonenum, email, password, salt, verified) VALUES ('${req.body.name}', '${req.body.phone}', '${req.body.email}', '${password_hashed}', '${salt}', 'false')`, function (err, rows, fields) {
+                    connection.query(`INSERT INTO register(name, phonenum, email, password, salt, verified) VALUES ('${req.body.name}', '${req.body.phone}', '${req.body.email}', '${password_hashed}', '${salt}', false)`, function (err, rows, fields) {
                         if (err) {
                             console.error(err);
                         } else {
