@@ -24,20 +24,20 @@ const multer = require("multer");
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'LiranForweb@gmail.com',
+      user: conf.mail,
       pass: conf.mailpass
     }
   });
 
 const connection = sql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'm1',
+    host: conf.sqlhost,
+    user: conf.sqluser,
+    database: conf.sqldb,
     password: conf.sqlpass
 });
 
 app.use(session({
-  secret: process.env.secret,
+  secret: conf.secret,
   resave: false,
   saveUninitialized: true,
   cookie: {} //in prod it will be {secure: true}
