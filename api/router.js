@@ -1,5 +1,8 @@
 module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, request) {
 
+    console.log("router.js loaded")
+
+
     function createsalt(length) {
         return crypto.randomBytes(Math.ceil(length / 2))
             .toString('hex') /** convert to hexadecimal format */
