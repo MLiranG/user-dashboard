@@ -1,6 +1,6 @@
 const conf = require('../config.js')
 
-module.exports = function (app, passport, cookies, connection, crypto, transporter, conf, jwt, moment, request) {
+module.exports = function (app, passport, cookies, connection, crypto, transporter, jwt, moment, request) {
 
     console.log("router.js loaded")
 
