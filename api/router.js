@@ -37,6 +37,8 @@ module.exports = function (app, passport, cookies, connection, crypto, transport
                         let info = {};
                         info.user = email;
                         info.expiry = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+                        console.log(info)
+                        console.log(conf.secret)
                         let token = jwt.encode(info, conf.secret);
                         console.log("http://localhost:8080/verify/register/" + token);
 
