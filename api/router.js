@@ -1,3 +1,4 @@
+const webbase = "https://liranb.herokuapp.com"
 const conf = require('../config.js')
 
 module.exports = function (app, passport, cookies, connection, crypto, jwt, transporter, moment, request) {
@@ -43,14 +44,14 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
                         console.log(conf.secret)
                         console.log(transporter)
                         let token = jwt.encode(info, conf.secret);
-                        console.log("http://localhost:8080/verify/register/" + token);
+                        console.log(webbase + "/verify/register/" + token);
 
                         transporter.sendMail({
                             from: '"LiranB work" <LiranForweb@gmail.com>', // sender address
                             to: email, // list of receivers
                             subject: "Email verification", // Subject line
                             text: "Hello world?", // plain text body
-                            html: `<b><h1>Hello!</h1>,<br><h2><a href="http://localhost:8080/verify/register/${token}">please click here to verificate your registeration.</a></h2></b>` // html body
+                            html: `<b><h1>Hello!</h1>,<br><h2><a href="${webbase}/verify/register/${token}">please click here to verificate your registeration.</a></h2></b>` // html body
                         });
 
                         return "emailsent"
@@ -89,7 +90,7 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
                         info.expiry = new Date(now.add(30, 'm'))
                         let token = jwt.encode(info, conf.secret);
                         console.log(info)
-                        console.log("http://localhost:8080/verify/resetpass/" + token);
+                        console.log(webbase + "/verify/resetpass/" + token);
 
 
                         transporter.sendMail({
@@ -97,7 +98,7 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
                             to: email, // list of receivers
                             subject: "Your password has reseted!", // Subject line
                             text: "Hello world?", // plain text body
-                            html: `<b><h1>Hello!</h1>,<br><h2><a href="http://localhost:8080/verify/resetpass/${token}">please click here to change your password.</a></h2></b>` // html body
+                            html: `<b><h1>Hello!</h1>,<br><h2><a href="${webbase}/verify/resetpass/${token}">please click here to change your password.</a></h2></b>` // html body
                         });
                         console.log('Password changed!')
                         return true;
@@ -136,14 +137,14 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
         let token = req.params.token;
         let data = jwt.decode(token, conf.secret);
         if (new Date(data.expiry) < new Date()) {
-            res.send(`<h2>This link expired already, would you like a resend?</h2><br><p><a href='http://localhost:8080/resend/verify/${data.user}'>Click here for a resend</p>`)
+            res.send(`<h2>This link expired already, would you like a resend?</h2><br><p><a href='${webbase}/resend/verify/${data.user}'>Click here for a resend</p>`)
         } else {
             connection.query(`SELECT * FROM register WHERE email = '${data.user}'`, function (err, rows, fields) {
                 if (err) {
                     console.error(err);
                 } else {
                     if (!rows[0]) {
-                        res.send(`<h2>There might be an error, this user doesn't exist.</h2><br><p><a href='http://localhost:8080/'>Click here to signup a new account.</p>`)
+                        res.send(`<h2>There might be an error, this user doesn't exist.</h2><br><p><a href='${webbase}/'>Click here to signup a new account.</p>`)
                     } else {
                         connection.query(`UPDATE register SET verified=1 WHERE email = '${data.user}' `, function (err, rows, fields) {
                             if (err) {
@@ -166,7 +167,7 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
         let data = jwt.decode(token, conf.secret);
         console.log(data)
         if (new Date(data.expiry) < new Date()) {
-            res.send(`<h2>This link expired already, would you like a resend?</h2><br><p><a href='http://localhost:8080/reset/password/'>Click here for a resend</p>`)
+            res.send(`<h2>This link expired already, would you like a resend?</h2><br><p><a href='${webbase}/reset/password/'>Click here for a resend</p>`)
         } else {
             console.log(hash(data.newpass, data.salt).passwordHash)
             let query = `UPDATE register SET password='${data.newpass}' WHERE email = '${data.user}'`
@@ -312,7 +313,7 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
                                                 let token = jwt.encode(body, conf.secret)
 
                                                 // request.get('http://localhost:8080/profile/callback/' + token)
-                                                res.send('http://localhost:8080/profile/callback/' + token)
+                                                res.send(webbase + '/profile/callback/' + token)
                                                 // res.redirect('http://localhost:8080/profile/callback/' + token)
 
                                                 // fetch('http://localhost:8080/profile', {

@@ -1,5 +1,6 @@
 const fs = require("fs")
 const conf = require('../config.js')
+const webbase = "https://liranb.herokuapp.com"
 
 module.exports = function (app, passport, cookies, connection, crypto, jwt, transporter, moment, request, path, fs, multer) {
 
@@ -47,7 +48,7 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
 
         // res.render('mainpage.html')
         // next()
-        res.redirect(`http://localhost:8080/profile`)
+        res.redirect(`${webbase}/profile`)
         // res.send('<h2>idk</h2>')
     })
 
@@ -60,7 +61,7 @@ module.exports = function (app, passport, cookies, connection, crypto, jwt, tran
                 data: data
             })
         } else {
-            res.redirect(`http://localhost:8080/`)
+            res.redirect(webbase)
         }
     })
 
